@@ -264,6 +264,118 @@ class ViewController: UIViewController {
             // 实现
         }
         
+        // 尾随举例
+        reversed = names.sort() {$0 > $1}
+        
+        // 如果闭包是函数的唯一参数,则函数的括号可省
+        reversed = names.sort {$0 > $1}
+        
+        let digitNames = [
+        
+            0: "Zero",
+            1: "One",
+            2: "Two",
+            3: "Three",
+            4: "Four",
+            5: "Five",
+            6: "Six",
+            7: "Seven",
+            8: "Eight",
+            9: "Nine"
+        ]
+        
+        let numbers = [16, 58, 510]
+        
+        let stringNumbers = numbers.map {
+        
+            (var number) -> String in
+            
+            var output = ""
+            
+            while number > 0 {
+            
+                output = digitNames[number % 10]! + output
+                
+                number /= 10
+            }
+            
+            return output
+        }
+        
+        print(stringNumbers)
+        
+    // 函数和闭包是值类型,意味着它可以捕获并引用上下文变量的值
+        
+        var runningTotal = 0
+        
+        func makeIncreamenter(forIncrement amout: Int) -> () -> Int {
+        
+            
+            
+            func increment() -> Int {
+            
+                runningTotal += amout
+                
+                return runningTotal
+            }
+            
+            return increment
+        }
+        
+        let incrementByTen = makeIncreamenter(forIncrement: 10)
+        
+        print(incrementByTen())
+        // 打印 "10"
+        
+        print(incrementByTen())
+        // 打印 "20"
+        
+        print(runningTotal)
+        // 打印 "20"
+        
+        runningTotal = 100
+        
+        print(incrementByTen())
+        // 打印 "110"
+        
+        var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+        
+        func serveCustomer(customerProvider: () -> String) {
+        
+            print("Now serving \(customerProvider())!")
+        }
+        
+        serveCustomer({ customersInLine.removeAtIndex(0) })
+        
+        // @autoclosure 改变上面的函数,可以省略{}
+        func anoterServeCustomers(@autoclosure customerProvider: () -> String) {
+        
+            print("Now serving \(customerProvider())!")
+        }
+        
+        anoterServeCustomers(customersInLine.removeAtIndex(0))
+        
+        // @autoclosure默认@noescape,即闭包不可让外部使用
+        // 若让外部使用,则用@autoclosure(escaping)修饰
+        var customerProviders: [() -> String] = []
+        
+        func collectCustmoerProviders(@autoclosure(escaping) customerProvider: () -> String) {
+        
+            customerProviders.append(customerProvider)
+            
+            print("Collected \(customerProviders.count) closure")
+        }
+        
+        collectCustmoerProviders(customersInLine.removeAtIndex(0))
+        
+        collectCustmoerProviders(customersInLine.removeAtIndex(0))
+        
+        for customerProvider in customerProviders {
+        
+            print("Now serving \(customerProvider())!")
+        }
+        
+        
     }
 
 
