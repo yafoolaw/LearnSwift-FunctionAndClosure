@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  FunctionsAndClosures
 //
-//  Created by 刘延峰 on 15/10/16.
+//  Created by FrankLiu on 15/10/16.
 //  Copyright © 2015年 刘大帅. All rights reserved.
 //
 
@@ -16,6 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // MARK: 字面量缺省值设置,双击变成缺省值
+        let swiftString = "<#刘大帅#>"
+        
+        let swiftArray  = ["<#刘大帅#>","<#FrankLiu#>"]
+        
+        let swiftDic    = ["<#name#>" : "<#刘大帅#>"]
+        
+        print("swiftString = ",swiftString,"\n","swiftArray = ",swiftArray,"\n","swiftDic = ",swiftDic)
+        
         return true
     }
 
